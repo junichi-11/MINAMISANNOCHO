@@ -1,0 +1,28 @@
+
+/* Mobile: preserve the complete two-image 2LDK editorial gallery. */
+@media (max-width: 850px) {
+  .editorial-row .editorial-image.interior-duo,
+  .editorial-row.reverse .editorial-image.interior-duo {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    align-items: start;
+  }
+  .editorial-image.interior-duo .interior-frame {
+    min-height: 0;
+    overflow: visible;
+  }
+  .editorial-image.interior-duo .interior-frame img {
+    width: 100%;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
+    object-fit: contain !important;
+    display: block;
+  }
+}
+@media (max-width: 540px) {
+  .editorial-image.interior-duo {grid-template-columns: minmax(0,1fr);gap: 24px;}
+  .editorial-image.interior-duo .interior-frame img {height:auto !important;}
+}

@@ -1,0 +1,39 @@
+
+/* MA : refined editorial motion, edition 2026-10-10 */
+:root { --ma-ease:cubic-bezier(.22,1,.36,1); }
+/* Give established reveal elements a quieter, slower cinematic cadence. */
+.js .fade { transition: opacity 1.55s var(--ma-ease), transform 1.65s var(--ma-ease), filter 1.55s var(--ma-ease) !important; }
+.js .fade:not(.shown) { filter:blur(11px); }
+.js .fade.shown { filter:blur(0); }
+/* Soft light passes over editorial photographs after entering the viewport. */
+.ma-visual { position:relative; isolation:isolate; }
+.ma-visual:not(.interior-duo) { overflow:hidden; }
+.ma-visual:after {content:'';pointer-events:none;position:absolute;inset:0;z-index:1;background:linear-gradient(110deg,rgba(247,247,244,.30),rgba(247,247,244,.04) 45%,transparent 80%);opacity:0;transition:opacity 2s var(--ma-ease);}
+.ma-visual.ma-enter:after {opacity:0.14;}
+.ma-visual img { transition:transform 2.6s var(--ma-ease), filter 1.7s var(--ma-ease),opacity 1.3s var(--ma-ease) !important; }
+.ma-visual.ma-enter img { animation:ma-photograph-breathe 2.6s var(--ma-ease) both; }
+@keyframes ma-photograph-breathe { from {filter:brightness(1.12) saturate(.83);transform:scale(1.045)} to {filter:brightness(1) saturate(1);transform:scale(1)} }
+/* Keep user control of gallery/plan/process interactions: no animation triggered on switching source. */
+.ma-visual:is(.process-visual,.plan-stage) img {animation:none!important;}
+/* Airier editorial rhythm for text and section labels. */
+.ma-copy > :is(h2,h3,p,.eyebrow,.section-num,.section-label) {transition:opacity 1.35s var(--ma-ease),transform 1.5s var(--ma-ease),filter 1.4s var(--ma-ease)}
+.ma-copy.ma-enter > :is(h2,h3,p,.eyebrow,.section-num,.section-label) {animation:ma-copy-in 1.65s var(--ma-ease) both;}
+.ma-copy.ma-enter > :is(h2,h3,p,.eyebrow,.section-num,.section-label):nth-child(2) {animation-delay:.16s}
+.ma-copy.ma-enter > :is(h2,h3,p,.eyebrow,.section-num,.section-label):nth-child(3) {animation-delay:.30s}
+.ma-copy.ma-enter > :is(h2,h3,p,.eyebrow,.section-num,.section-label):nth-child(n+4) {animation-delay:.41s}
+@keyframes ma-copy-in {from{opacity:.12;transform:translate3d(0,20px,0);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
+@media(hover:hover) and (pointer:fine){
+ .ma-visual:not(.process-visual,.plan-stage):hover img {transform:scale(1.022);filter:brightness(1.02)}
+}
+@media(max-width:780px) {
+ .header .tiny{font-size:9px;letter-spacing:.12em;white-space:nowrap;}
+ .ma-visual.ma-enter img {animation-duration:2.15s}
+ .ma-copy.ma-enter > :is(h2,h3,p,.eyebrow,.section-num,.section-label){animation-duration:1.35s}
+ /* Preserve the full mobile interior compositions. */
+ .editorial-image.interior-duo.ma-visual{overflow:visible!important}
+ .editorial-image.interior-duo.ma-visual img {object-fit:contain!important;height:auto!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .ma-visual.ma-enter img,.ma-copy.ma-enter > *{animation:none!important}
+ .ma-visual:after{display:none}
+}
